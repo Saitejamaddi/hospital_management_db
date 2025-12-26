@@ -43,4 +43,30 @@ public class DoctorService {
         doctorRepository.deleteById(id);
         return "Doctor with id : "+id+" got deleted successfully!";
     }
+
+    public String updateUsingPut(int id, Doctor newDoctorRequest){
+
+        Doctor existingDoctor = findById(id);
+        if(existingDoctor != null){
+            doctorRepository.save(newDoctorRequest);
+            return "Doctor with id : " +id+" is updated successfully!";
+        }
+        else{
+            return "Doctor with id : "+ id+" is not found!";
+        }
+    }
+
+    public String updateUsingPatch(int id, String newName, String newEmail){
+
+        Doctor existingDoctor = findById(id);
+        if(existingDoctor != null){
+            existingDoctor.setName(newName);
+            existingDoctor.setEmail(newEmail);
+            doctorRepository.save(existingDoctor);
+            return "Doctor with id : " +id+" is updated successfully!";
+        }
+        else{
+            return "Doctor with id : "+ id+" is not found!";
+        }
+    }
 }
